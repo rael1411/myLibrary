@@ -52,8 +52,8 @@ function render(lib){
             myLibrary.splice(e.id, 1);         
             render(lib);
         });
-        change.addEventListener("click", function(f){
-            console.log(f.id)
+        change.addEventListener("click", function(e){
+            console.log(e.id)
             myLibrary[e.target.id].change();
         });
         counter++;
