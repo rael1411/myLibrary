@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Library</title></head>
+    <body>
+        <div id="formContainer">
+            <form>
+                <input type="text" id="name" name="name" placeholder="Name" required>
+                <input type="text" id="author" name="author" placeholder="Author" required>
+                <input type="text" id="pages" name="pages" placeholder="Pages">
+                <label for="read">Read</label><input type="checkbox" id ="read" name="read">
+                <input type="submit" id="submit" value="Submit">
+            </form>
+        </div>
+        <button id="add">Add a book</button>
+        <button id="show">Show my library</button>
+        
+        
+        <div id="container"></div>
+
+        <script src="book.js"></script>
+    </body>
+</html>
