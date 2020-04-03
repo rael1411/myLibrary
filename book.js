@@ -9,17 +9,17 @@ function Book(title, author, pages, read) {
     this.author = author,
     this.pages = pages,
     this.read = read,
-    this.info = function(){
-        return `Title: ${title}, author: ${author}, page number: ${pages}, read status: ${read}`;
-    }
+
     this.change = function(){
         if (this.read == "Yes"){
-            read = "No";
+            this.read = "No";
         }
         else if (this.read == "No"){
-            read = "Yes";
+            this.read = "Yes";
         }
-        render(myLibrary);
+    }
+    this.info = function(){
+        return `Title: ${title}, author: ${author}, page number: ${pages}, read status: ${this.read}`;
     }
 }
 
@@ -36,27 +36,29 @@ show.addEventListener("click", function(){
 });
 function render(lib){
     container.innerHTML= "";
-    let counter = 0;
-    lib.forEach((book) => {
+    lib.forEach((book, index) => {
         let content = document.createElement("p");
-        content.id = counter;
-        content.textContent = `${counter + 1}: ${book.info()} `;
+        content.id = index;
+        content.textContent = `${index + 1}: ${book.info()} `;
         let remove = document.createElement("button");
         remove.textContent = "remove";
         let change = document.createElement("button");
         change.textContent = "Change read";
+        change.id = index;
         container.appendChild(content);
         content.appendChild(remove);
         content.appendChild(change);
         remove.addEventListener("click", function(e){   
-            myLibrary.splice(e.id, 1);         
+            console.log(e.id);
+            console.log(e.target.id)
+            myLibrary.splice(content.id, 1);         
             render(lib);
         });
         change.addEventListener("click", function(e){
-            console.log(e.id)
-            myLibrary[e.target.id].change();
+            console.log(e)
+            myLibrary[content.id].change();
+            render(lib);
         });
-        counter++;
     });
 
 }
