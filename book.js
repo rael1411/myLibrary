@@ -36,29 +36,54 @@ show.addEventListener("click", function(){
 });
 function render(lib){
     container.innerHTML= "";
+    //creating a table for better formatting
+    let tableHeader = document.createElement("table");
+    let th1 = document.createElement("th");
+    th1.textContent = "Title";
+    let th2 = document.createElement("th");
+    th2.textContent = "Author";
+    let th3 = document.createElement("th");
+    th3.textContent = "Pages";
+    let th4 = document.createElement("th");
+    th4.textContent = "Read";
+    container.appendChild(tableHeader);
+    tableHeader.appendChild(th1);
+    tableHeader.appendChild(th2);
+    tableHeader.appendChild(th3);
+    tableHeader.appendChild(th4);
+    th1.style.width = "400px";
+    th2.style.width = "200px";
+    th3.style.width = "100px";
+    th4.style.width = "75px";
     lib.forEach((book, index) => {
-        let content = document.createElement("p");
-        content.id = index;
-        content.textContent = `${index + 1}: ${book.info()} `;
         let remove = document.createElement("button");
-        remove.textContent = "remove";
+        remove.textContent = "Remove";
         let change = document.createElement("button");
         change.textContent = "Change read";
-        change.id = index;
-        container.appendChild(content);
-        content.appendChild(remove);
-        content.appendChild(change);
+        let tr = document.createElement("tr");
+        tr.id = index;
+        for (let item in book){
+            console.log(item);
+            if (item != "change" && item != "info"){
+                console.log(item);
+                let content = document.createElement("td");
+                content.textContent = myLibrary[index][item];
+                tr.appendChild(content);
+            }
+        }
+        tableHeader.appendChild(tr);
         remove.addEventListener("click", function(e){   
-            console.log(e.id);
-            console.log(e.target.id)
-            myLibrary.splice(content.id, 1);         
+            myLibrary.splice(tr.id, 1);         
             render(lib);
         });
         change.addEventListener("click", function(e){
-            console.log(e)
-            myLibrary[content.id].change();
+            myLibrary[tr.id].change();
             render(lib);
         });
+        remove.className = "tableButtons";
+        change.className = "tableButtons";
+        tr.appendChild(remove);
+        tr.appendChild(change);
     });
 
 }
